@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head >
+
+    <style>
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            width: 1000px;
+            margin: 0px auto;
+
+        }
+
+        table {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table td, table th {
+            border: 1px solid rgb(247, 247, 247);
+            padding: 15px;
+        }
+
+        table tr:nth-child(even){background-color: #f8f8f8;}
+
+        table tr:hover {background-color: rgb(243, 243, 243);}
+
+        table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #FFFFFF;
+            color: rgb(78, 78, 78);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+
+        }
+        .custmer{
+            position: absolute;
+            margin-top: -100px;
+            margin-left:50px;
+
+        }
+        .address {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            line-height: 12px;
+            font-size: 15px;
+            margin-top: -10px;
+            margin-left:-520px;
+        }
+
+        .contact {
+            margin-left: 520px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .status {
+            text-align: right;
+            margin-top: -200px;
+        }
+        .receipt-id {
+            margin-top: -50px;
+            text-align: right;
+            margin-left: 490px;
+        }
+
+        .title {
+            margin-top: 3px;
+            position: absolute;
+            text-transform: uppercase;
+            color: gray;
+            letter-spacing: 2px;
+            font-size: 10px;
+            margin-left: 450px;
+        }
+
+        .summary {
+
+            margin-top: -290px;
+            margin-right: 0px;
+            margin-left: 55%;
+            margin-bottom: 50px;
+        }
+        .Bank {
+            margin-top: 20px;
+            margin-right: 55%;
+            margin-bottom: 50px;
+
+        }
+
+        img {
+            width: 150px;
+            padding-top: 100px;
+        }
+
+    </style>
+</head>
+<section  class="header">
+    <div>
+        <img src="../../hp.png"/>
+
+    </div>
+</section>
+<section class="address">
+    <div class="contact">
+        <div>
+            <h4>Seller:<%=data.sellerInfo.sellerName%></h4>
+            <p>GST:<%=data.sellerInfo.GSTSeller%></p>
+            <p>Email:<%=data.sellerInfo.emailSeller%></p>
+            <p>Mobile:<%=data.sellerInfo.mobileSeller%></p>
+            <p>City:<%=data.sellerInfo.citySeller%></p>
+            <p>State:<%=data.sellerInfo.stateSeller%></p>
+        </div>
+
+        <div>
+            <div class="custmer">
+                <% data.custmerInfo.forEach((item)=>{%>
+                <h4> Custmer: <%=item.CustmerName%> </h4>
+                <p>GST:<%=item.GST%></p>
+                <p> Email: <%=item.email%> </p>
+                <p>Mobile:  <%=item.mobile%> </p>
+                <p> City: <%=item.city%> </p>
+                <p>State:  <%=item.state%> </p>
+                <%});%>
+            </div>
+        </div>
+    </div>
+
+    <div class="status">
+        <div class="receipt-id">
+            <h1>Invoice No</h1>
+            <p style="text-align: center"><%=data.invoiceNumber%></p>
+        </div>
+
+        <p><%=data.invoiceDate%></p>
+        <h2 class="title">Amount</h2>
+        <h3><%=data.invoiceValue%></h3>
+    </div>
+
+
+</section>
+
+<table>
+    <tr>
+        <th style="text-align: center">Description</th>
+        <th style="text-align: center">HSN CODE</th>
+        <th style="text-align: center">Quantity</th>
+        <th style="text-align: center">Price</th>
+        <th style="text-align: center">Amount</th>
+    </tr>
+    <% for(var i=0; i<data.productDetails.length; i++) {%>
+    <tr>
+        <td style="text-align: center"><%=data.productDetails[i].productName%></td>
+        <td style="text-align: center"><%=data.productDetails[i].HSNCode%></td>
+        <td style="text-align: center"><%=data.productDetails[i].productQuantity%></td>
+        <td style="text-align: center"><%=data.productDetails[i].productRate%></td>
+        <td style="text-align: center"><%=data.productDetails[i].productAmount%></td>
+    </tr>
+    <%};%>
+</table>
+<section class="Bank">
+    <table>
+        <tr>
+            <th>Company's Bank Details</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>Bank Name</td>
+            <td style="text-align: center"><%=data.sellerInfo.bankName%></td>
+        </tr>
+
+        <tr>
+            <td>Branch <%=data.IGST%></td>
+            <td style="text-align: center"><%=data.sellerInfo.branchName%></td>
+        </tr>
+        <tr>
+            <td>A/C NO </td>
+            <td style="text-align: center"><%=data.sellerInfo.AccountNum%></td>
+        </tr>
+        <tr>
+            <td>IFSC CODE</td>
+            <td style="text-align: center"><%=data.sellerInfo.ifsCode%></td>
+        </tr>
+    </table>
+</section>
+
+<section class="summary">
+    <table>
+        <tr>
+            <th>Summary</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>Texable Value</td>
+            <td style="text-align: center"><%=data.textableValue%></td>
+        </tr>
+
+        <tr>
+            <td>IGST <%=data.IGST%>%</td>
+            <td style="text-align: center"><%=data.IGSTValue%></td>
+        </tr>
+        <tr>
+            <td>CGST <%=data.CGST%>%</td>
+            <td style="text-align: center"><%=data.CGSTValue%></td>
+        </tr>
+        <tr>
+            <td>SGST <%=data.SGST%>%</td>
+            <td style="text-align: center"><%=data.SGSTValue%></td>
+        </tr>
+        <tr>
+            <td><h3>Total Amount</h3></td>
+            <td ><h3 style="line-height: 5px; text-align: center"><%=data.invoiceValue%></h3></td>
+        </tr>
+
+    </table>
+</section>
+
+
+<div>
+    <hr>
+    <h4>Note</h4>
+    <p>This is System Generate Invoice</p>
+</div>
+
+</body>
+</html>
